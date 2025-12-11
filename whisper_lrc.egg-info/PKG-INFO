@@ -1,3 +1,35 @@
+Metadata-Version: 2.4
+Name: whisper-lrc
+Version: 1.0.0
+Summary: 使用 faster_whisper 将音频文件转换为带时间戳的 LRC 字幕文件
+Author: Twsa
+License-Expression: MIT
+Project-URL: Homepage, https://github.com/Twsa/whisper-cpu
+Project-URL: Repository, https://github.com/Twsa/whisper-cpu
+Project-URL: Issues, https://github.com/Twsa/whisper-cpu/issues
+Keywords: whisper,lrc,subtitle,audio,speech-recognition
+Classifier: Development Status :: 5 - Production/Stable
+Classifier: Intended Audience :: End Users/Desktop
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Classifier: Programming Language :: Python :: 3.11
+Classifier: Programming Language :: Python :: 3.12
+Classifier: Topic :: Multimedia :: Sound/Audio :: Speech
+Classifier: Topic :: Multimedia :: Sound/Audio :: Conversion
+Requires-Python: >=3.8
+Description-Content-Type: text/markdown
+License-File: LICENSE
+Requires-Dist: faster-whisper
+Requires-Dist: torch>=2.0.0
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: black; extra == "dev"
+Requires-Dist: flake8; extra == "dev"
+Dynamic: license-file
+
 # Whisper to LRC 转换器
 
 使用 faster_whisper 将音频文件转换为带时间戳的 LRC 字幕文件。
@@ -33,22 +65,9 @@ whisper-lrc-batch /path/to/music/
 git clone https://github.com/Twsa/whisper-cpu
 cd whisper-cpu
 
-# 方法 1: 安装到系统环境（推荐）
-pip install --break-system-packages -e .
-
-# 方法 2: 安装到用户目录（无需 sudo）
-pip install --user -e .
-
-# 方法 3: 使用虚拟环境
-python -m venv venv
-source venv/bin/activate  # Linux/macOS
+# 安装项目（开发模式）
 pip install -e .
 ```
-
-> **提示**: 如果使用 CPU 模式，可以先安装 CPU 版本的 torch 以节省下载时间：
-> ```bash
-> pip install torch --index-url https://download.pytorch.org/whl/cpu
-> ```
 
 ### 方法三：使用虚拟环境
 

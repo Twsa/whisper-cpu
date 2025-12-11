@@ -1,0 +1,51 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "whisper-lrc"
+version = "1.0.0"
+description = "使用 faster_whisper 将音频文件转换为带时间戳的 LRC 字幕文件"
+readme = "README.md"
+license = "MIT"
+authors = [
+    {name = "Twsa"}
+]
+keywords = ["whisper", "lrc", "subtitle", "audio", "speech-recognition"]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Sound/Audio :: Speech",
+    "Topic :: Multimedia :: Sound/Audio :: Conversion",
+]
+requires-python = ">=3.8"
+dependencies = [
+    "faster-whisper",
+    "torch>=2.0.0",
+]
+
+[tool.setuptools]
+py-modules = ["main", "batch_process", "utils", "whisper_lrc"]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "black",
+    "flake8",
+]
+
+[project.urls]
+Homepage = "https://github.com/Twsa/whisper-cpu"
+Repository = "https://github.com/Twsa/whisper-cpu"
+Issues = "https://github.com/Twsa/whisper-cpu/issues"
+
+[project.scripts]
+whisper-lrc = "main:main"
+whisper-lrc-batch = "batch_process:main"

@@ -1,0 +1,3 @@
+[console_scripts]
+whisper-lrc = main:main
+whisper-lrc-batch = batch_process:main

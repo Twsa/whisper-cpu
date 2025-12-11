@@ -1,0 +1,9 @@
+include README.md
+include LICENSE
+recursive-include *.py
+global-exclude __pycache__
+global-exclude *.py[co]
+global-exclude .git*
+global-exclude .DS_Store
+global-exclude *.so
+global-exclude venv

@@ -1,0 +1,14 @@
+LICENSE
+MANIFEST.in
+README.md
+batch_process.py
+main.py
+pyproject.toml
+utils.py
+whisper_lrc.py
+whisper_lrc.egg-info/PKG-INFO
+whisper_lrc.egg-info/SOURCES.txt
+whisper_lrc.egg-info/dependency_links.txt
+whisper_lrc.egg-info/entry_points.txt
+whisper_lrc.egg-info/requires.txt
+whisper_lrc.egg-info/top_level.txt

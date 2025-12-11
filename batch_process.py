@@ -1,5 +1,6 @@
 """批处理模块 - 递归处理目录下的所有音频文件"""
 import os
+import sys
 import time
 from pathlib import Path
 from whisper_lrc import WhisperLRCGenerator
@@ -147,3 +148,69 @@ class BatchProcessor:
         if self.processed_count > 0:
             avg_time = elapsed_time / self.processed_count
             print(f"平均每文件: {avg_time:.2f} 秒")
+
+
+def main():
+    """批处理模式的命令行入口"""
+    import argparse
+
+    parser = argparse.ArgumentParser(
+        description='批处理模式：递归处理目录下的所有音频文件',
+        formatter_class=argparse.RawDescriptionHelpFormatter,
+        epilog="""
+使用示例:
+  %(prog)s /path/to/music              # 递归处理目录
+  %(prog)s /path/to/music --no-recursive  # 仅处理当前目录
+  %(prog)s /path/to/music -l zh         # 指定中文
+  %(prog)s /path/to/music -m tiny       # 使用 tiny 模型
+  %(prog)s /path/to/music --force       # 强制覆盖已存在的文件
+        """
+    )
+
+    parser.add_argument('directory', help='要处理的音频文件目录路径')
+    parser.add_argument('-m', '--model', default='base',
+                       choices=['tiny', 'base', 'small', 'medium', 'large'],
+                       help='Whisper 模型大小 (默认: base)')
+    parser.add_argument('-l', '--language',
+                       help='指定语言代码 (如: zh, en, ja, ko 等)')
+    parser.add_argument('--beam-size', type=int, default=5,
+                       help='Beam search 大小 (默认: 5)')
+    parser.add_argument('--device', default='cpu', choices=['cpu', 'cuda'],
+                       help='计算设备 (默认: cpu)')
+    parser.add_argument('--compute-type', default='int8',
+                       choices=['int8', 'float16', 'float32'],
+                       help='计算类型 (默认: int8)')
+    parser.add_argument('--vad-filter', action='store_true',
+                       help='启用语音活动检测（过滤静音部分）')
+    parser.add_argument('--no-recursive', action='store_true',
+                       help='不递归处理子目录')
+    parser.add_argument('--force', action='store_true',
+                       help='强制覆盖已存在的 LRC 文件')
+
+    args = parser.parse_args()
+
+    # 检查目录是否存在
+    if not os.path.exists(args.directory):
+        print(f"错误: 目录不存在: {args.directory}")
+        sys.exit(1)
+
+    if not os.path.isdir(args.directory):
+        print(f"错误: 不是目录: {args.directory}")
+        sys.exit(1)
+
+    # 创建批处理器
+    processor = BatchProcessor(
+        model_size=args.model,
+        device=args.device,
+        compute_type=args.compute_type
+    )
+
+    # 开始批处理
+    processor.process_directory(
+        directory=args.directory,
+        recursive=not args.no_recursive,
+        language=args.language,
+        beam_size=args.beam_size,
+        vad_filter=args.vad_filter,
+        skip_existing=not args.force
+    )
