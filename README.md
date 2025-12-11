@@ -15,11 +15,31 @@
 
 ## 安装依赖
 
-项目使用虚拟环境，依赖已经安装：
+### 方法一：使用虚拟环境（推荐）
 
 ```bash
+# 克隆项目
+git clone https://github.com/Twsa/whisper-cpu
+cd whisper-cpu
+
+# 创建虚拟环境
+python -m venv venv
+
 # 激活虚拟环境
-source venv/bin/activate
+source venv/bin/activate  # Linux/macOS
+# 或
+venv\Scripts\activate     # Windows
+
+# 安装依赖
+pip install faster-whisper torch
+```
+
+### 方法二：直接安装依赖
+
+不想使用虚拟环境也可以直接安装：
+
+```bash
+pip install faster-whisper torch
 ```
 
 ## 使用方法
